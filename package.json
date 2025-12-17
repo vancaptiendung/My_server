@@ -1,0 +1,26 @@
+{
+  "name": "my_server",
+  "version": "1.0.0",
+  "description": "About my journey learn how to create a basic server .",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vancaptiendung/My_server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/vancaptiendung/My_server/issues"
+  },
+  "homepage": "https://github.com/vancaptiendung/My_server#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3"
+  }
+}

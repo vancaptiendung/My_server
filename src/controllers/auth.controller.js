@@ -17,3 +17,7 @@ export async function login(req, res, next){
         next(err);
     } 
 }
+
+export async function profile(req, res, next){
+    res.json({username : req.user});
+}

@@ -1,5 +1,4 @@
 import { validinput } from "../utils/validator.js";
-import express from "express";
 import {login_check} from "../services/auth.service.js"
 
 export async function showkey(req, res){
@@ -19,5 +18,5 @@ export async function login(req, res, next){
 }
 
 export async function profile(req, res, next){
-    res.json({username : req.user});
+    res.json({username : req.user.username});
 }

@@ -1,4 +1,3 @@
-import "dotenv/config";
 import jwt from "jsonwebtoken";
 
 export function authmiddleware(req, res, next){

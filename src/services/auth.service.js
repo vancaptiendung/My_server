@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import "dotenv/config";
 import {AppError} from "../errors/AppError.js"
 
 export async function login_check({username, password}){

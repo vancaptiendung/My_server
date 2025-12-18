@@ -1,4 +1,4 @@
-import "./routes/auth.route.js";
+import "dotenv/config";
 import {app} from "./app.js";
 
 app.listen(3000, () => {

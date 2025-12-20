@@ -1,5 +1,6 @@
 import "dotenv/config";
 import {app} from "./app.js";
+import "crypto";
 
 app.listen(3000, () => {
     console.log("server start at: http://localhost:3000");

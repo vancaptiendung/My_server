@@ -1,5 +1,5 @@
 import express from "express";
-import authRoute from "./routes/auth.route.js";
+import authRoute from "./auth/auth.route.js";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 
 export const app = express();

@@ -1,4 +1,4 @@
-import { AppError } from "../errors/AppError";
+import { AppError } from "../errors/AppError.js";
 
 export function validinput(username, password){
     if (typeof(username) != "string" || typeof(password) != "string") throw AppError("invalid input", 400);

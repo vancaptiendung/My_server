@@ -1,5 +1,5 @@
 import { validinput } from "../utils/validator.js";
-import {login_check} from "../services/auth.service.js"
+import {login_check} from "./auth.service.js"
 
 export async function showkey(req, res){
     res.send("YGUY{he1l0_Em_Y3u}");

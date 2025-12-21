@@ -10,8 +10,8 @@ export async function login(req, res, next){
         // console.log("next type:", typeof next);
         const {username, password} = req.body;
         await validinput(username, password);
-        const token = await login_check({username, password});
-        res.json({token : token});
+        const token = await login_check(username, password, req.headers["user-agent"], req.ip);
+        res.json(token);
     }catch (err){
         next(err);
     } 

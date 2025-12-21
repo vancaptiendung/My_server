@@ -1,7 +1,8 @@
 CREATE TABLE users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE,
-  password_hash TEXT
+  password_hash TEXT,
+  user_role TEXT,
 );
 
 CREATE TABLE refresh_tokens (

@@ -1,54 +1,40 @@
 import jwt from "jsonwebtoken";
 import {AppError} from "../errors/AppError.js"
 import brypt from "bcrypt";
-
-const USERINFO = {
-    "dung" : {
-        user_id : crypto.randomUUID,
-        password : brypt.hash("helloword123", 10),
-    },
-    "kiet" : {
-        user_id : crypto.randomUUID,
-        password : brypt.hash("kietblox123", 10),
-    },
-    "admin" : {
-        user_id : crypto.randomUUID,
-        password :  brypt.hash("hachimimambo", 10),
-    }
-}
-
-RefreshTokens = [];
+import {refreshTokenRepo} from "../repositories/refreshToken.repo.js"
+import { userRepo } from "../repositories/user.repo.js";
+import crypto from "node:crypto";
 
 function generation_refresh_token(){
-    return crypto.randomBytes(64).toString();
+    return crypto.randomBytes(64).toString("hex");
 }
 
-export async function login_check({username, password}, req){
-    const user = USERINFO[username];
+async function addnewrefreshToken(user_id, time, ip, user_agent){
+    const id = crypto.randomUUID();
+    const token = generation_refresh_token();
+    const expires = new Date(Date.now() + time);
+    refreshTokenRepo.create({id, user_id, token, expires, ip, user_agent });
+    return token;
+};
+
+export async function login_check(username, password, user_agent, ip){
+    const user = await userRepo.findbyUser(username);
 
     if (user === undefined) throw new AppError("username not found", 401);
 
-    const ok = await brypt.compare(password, user.password);
-    if (!ok) throw new Error("Wrong password!", 401);
+    const ok = await brypt.compare(password, user.password_hash);
+    if (!ok) throw new AppError("Wrong password!", 401);
 
-    const accesstoken = jwt.sign(
-        {
-            username : username,
-            role : user.role
-        },
+    const accessToken = jwt.sign(
+        {"userid" : user.id, "role" : user.role},
         process.env.JWT_SECRET,
-        {expiresIn : "15m"}
+        {expiresIn: "15m"}
     );
 
-    const datarefreshtoken = {
-        user_id : user.user_id,
-        token : generation_refresh_token(),
-        token_id : crypto.randomUUID,
-        ip : req.ip,
-        user_agent : req.header["user_agent"]
-    }
-
-    const refreshtoken = jwt.sign(
-
-    )
+    const timeExpires = 15*24*60*60*1000;
+    // console.log(user.id);
+    const refresh_token = await addnewrefreshToken(user.id, timeExpires, ip, user_agent);
+    const tokenHash = crypto.createHash("sha256").update(refresh_token).digest("hex");
+    
+    return {accessToken, tokenHash};
 }

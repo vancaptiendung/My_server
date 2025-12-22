@@ -23,5 +23,11 @@ export const refreshTokenRepo = {
       `UPDATE refresh_tokens SET revoked = 1 WHERE id = ?`,
       [id]
     );
-  }
+  },
+
+  async deleteToken(id){
+    await db.run(
+      `DELETE FROM refresh_tokens WHERE id = ?`, [id]
+    );
+  },
 };

@@ -9,11 +9,11 @@ function generation_refresh_token(){
     return crypto.randomBytes(64).toString("hex");
 }
 
-async function addnewrefreshToken(user_id, time, ip, user_agent){
+async function addnewrefreshToken(userId, time, ip, userAgent){
     const id = crypto.randomUUID();
     const token = generation_refresh_token();
-    const expires = new Date(Date.now() + time);
-    refreshTokenRepo.create({id, user_id, token, expires, ip, user_agent });
+    const expiresAt = new Date(Date.now() + time);
+    refreshTokenRepo.create({id, userId, token, expiresAt, ip, userAgent });
     return token;
 };
 
